@@ -1,5 +1,40 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Typing Animation
+
+    // ========================================
+    // 1. Theme Toggle
+    // ========================================
+    const themeToggle = document.getElementById('theme-toggle');
+
+    function getPreferredTheme() {
+        const saved = localStorage.getItem('theme');
+        if (saved) return saved;
+        return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+
+    function setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+    }
+
+    // Listen for system preference changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        if (!localStorage.getItem('theme')) {
+            setTheme(e.matches ? 'dark' : 'light');
+        }
+    });
+
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme') || 'dark';
+            const next = current === 'dark' ? 'light' : 'dark';
+            setTheme(next);
+        });
+    }
+
+
+    // ========================================
+    // 2. Typing Animation
+    // ========================================
     const typedTextSpan = document.querySelector(".typed-text");
     const cursorSpan = document.querySelector(".cursor");
 
@@ -38,7 +73,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (textArray.length) setTimeout(type, newTextDelay + 250);
 
-    // 2. Smooth Scrolling & Active Link
+
+    // ========================================
+    // 3. Smooth Scrolling & Active Link
+    // ========================================
     const sections = document.querySelectorAll("section");
     const navLinks = document.querySelectorAll(".nav-links a");
 
@@ -46,7 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
         let current = "";
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
             if (pageYOffset >= sectionTop - 150) {
                 current = section.getAttribute("id");
             }
@@ -60,7 +97,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 3. Contact Form Submission (AJAX)
+
+    // ========================================
+    // 4. Contact Form Submission (AJAX)
+    // ========================================
     const contactForm = document.getElementById("contact-form");
     const formMessage = document.getElementById("form-message");
 
@@ -96,14 +136,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 4. Mobile Menu Toggle
+
+    // ========================================
+    // 5. Mobile Menu Toggle
+    // ========================================
     const menuToggle = document.querySelector(".menu-toggle");
     const navLinksContainer = document.querySelector(".nav-links");
 
     if (menuToggle) {
         menuToggle.addEventListener("click", () => {
             navLinksContainer.classList.toggle("mobile-active");
-            // Basic mobile active styling injected via JS if not in CSS
             if (navLinksContainer.classList.contains("mobile-active")) {
                 navLinksContainer.style.display = "flex";
                 navLinksContainer.style.flexDirection = "column";
@@ -111,12 +153,67 @@ document.addEventListener('DOMContentLoaded', () => {
                 navLinksContainer.style.top = "80px";
                 navLinksContainer.style.left = "0";
                 navLinksContainer.style.width = "100%";
-                navLinksContainer.style.background = "rgba(10, 10, 26, 0.95)";
+                navLinksContainer.style.background = "var(--bg-mobile-nav)";
                 navLinksContainer.style.padding = "20px";
-                navLinksContainer.style.borderBottom = "1px solid rgba(255, 255, 255, 0.1)";
+                navLinksContainer.style.borderBottom = "1px solid var(--border-glass)";
+                navLinksContainer.style.zIndex = "999";
             } else {
                 navLinksContainer.style.display = "";
+                navLinksContainer.style.background = "";
+                navLinksContainer.style.borderBottom = "";
+                navLinksContainer.style.zIndex = "";
             }
         });
     }
+
+
+    // ========================================
+    // 6. Project Cards — Read More / Show Less
+    // ========================================
+    function initProjectCards() {
+        const wrappers = document.querySelectorAll('.project-content-wrapper');
+
+        wrappers.forEach(wrapper => {
+            const content = wrapper.querySelector('.project-content');
+            const btn = wrapper.querySelector('.project-read-more-btn');
+
+            if (!content || !btn) return;
+
+            // Measure full content height (uncollapse temporarily)
+            content.classList.remove('collapsed');
+            const fullHeight = content.scrollHeight;
+            content.classList.add('collapsed');
+
+            // Get the collapsed max-height from CSS
+            const collapsedMaxHeight = parseFloat(getComputedStyle(content).maxHeight) || (9.5 * 16);
+
+            if (fullHeight <= collapsedMaxHeight + 5) {
+                // Content fits — no truncation needed
+                wrapper.classList.add('no-truncate');
+                return;
+            }
+
+            btn.addEventListener('click', () => {
+                const isCollapsed = content.classList.contains('collapsed');
+
+                if (isCollapsed) {
+                    // Expand
+                    content.classList.remove('collapsed');
+                    content.classList.add('expanded');
+                    wrapper.classList.add('is-expanded');
+                    btn.classList.add('active');
+                    btn.querySelector('.btn-text').textContent = 'Show Less';
+                } else {
+                    // Collapse
+                    content.classList.remove('expanded');
+                    content.classList.add('collapsed');
+                    wrapper.classList.remove('is-expanded');
+                    btn.classList.remove('active');
+                    btn.querySelector('.btn-text').textContent = 'Read More';
+                }
+            });
+        });
+    }
+
+    initProjectCards();
 });
