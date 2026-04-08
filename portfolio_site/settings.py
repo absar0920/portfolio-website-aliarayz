@@ -25,6 +25,8 @@ except ImportError:
 DEBUG = os.environ.get("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
     "aliarayz.pythonanywhere.com",
 ]
 
@@ -141,9 +143,7 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 MEDIA_URL = "/media/"
-#MEDIA_ROOT = BASE_DIR / "media"
-
-MEDIA_ROOT = '/home/AliArayz/portfolio-website/media/'
+MEDIA_ROOT = BASE_DIR / "media"
 
 
 STATICFILES_STORAGE = (
