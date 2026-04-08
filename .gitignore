@@ -9,7 +9,7 @@ db.sqlite3
 !/media/images/
 /media/images/*
 !/media/images/arayz-pic.jpeg
-!/media/images/website_logo.png
+!/media/images/favicon.ico
 
 # Environment
 .env
