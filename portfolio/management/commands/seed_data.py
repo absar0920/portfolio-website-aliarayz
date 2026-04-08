@@ -21,8 +21,8 @@ class Command(BaseCommand):
             title="Experienced Backend Developer | Python, Django, REST APIs & FastAPI",
             about="I'm Arayz Wasti, a passionate and results-driven Python Backend Developer with over 4 years of personal development experience and 2.5+ years of professional experience at Enigmatix. I specialize in building fast, secure, and scalable backend systems and RESTful APIs.",
             email="arayzwasti111@gmail.com",
-            github="https://github.com/arayzwasti",
-            linkedin="https://www.linkedin.com/in/arayz-wasti-4a7b8a2b8/"
+            github="https://github.com/Arayz-Wasti",
+            linkedin="https://www.linkedin.com/in/aliarayz/"
         )
 
         # 2. Skills
@@ -88,8 +88,8 @@ class Command(BaseCommand):
         for i, p in enumerate(projects):
             # Use specific video for VIN project if it exists
             video_file = 'videos/video.mp4'
-            if p['title'] == 'VIN Report Management System':
-                video_file = 'videos/vin_dashboard.mp4'
+            if p['title'] == 'N8n Filtering orders':
+                video_file = 'videos/filtering-orders-n8n.mp4'
             
             Project.objects.create(
                 title=p['title'],
