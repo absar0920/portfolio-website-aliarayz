@@ -1,12 +1,15 @@
 # Python
-venv/
 __pycache__/
 *.pyc
 
 # Django
 db.sqlite3
 /staticfiles
-/media
+/media/*
+!/media/images/
+/media/images/*
+!/media/images/arayz-pic.jpeg
+!/media/images/website_logo.png
 
 # Environment
 .env
