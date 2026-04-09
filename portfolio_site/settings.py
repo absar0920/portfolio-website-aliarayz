@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Now try to import it
 try:
     from .env import *
-    print("Environment variables loaded successfully!")a
+    print("Environment variables loaded successfully!")
 except ImportError:
     print("Could not find env.py")
 
