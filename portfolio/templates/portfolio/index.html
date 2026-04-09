@@ -4,9 +4,30 @@
 
 <head>
     <meta charset="UTF-8">
+    <!-- Google Verification -->
+    <meta name="google-site-verification" content="XXXXXXXXXXXX" />
+    <!-- Responsive -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ profile.name }} | {{ profile.title }}</title>
-    <meta name="description" content="{{ profile.about|truncatewords:30 }}">
+    <!-- SEO Title -->
+    <title>{{ profile.name }} | {{ profile.title }} | Python Django Developer</title>
+    <!-- SEO Description -->
+    <meta name="description" content="{{ profile.name }} is a {{ profile.title }} specializing in Python, Django, and backend development. {{ profile.about|truncatewords:20 }}">
+    <!-- Keywords (optional but okay) -->
+    <meta name="keywords" content="Python Developer, Django Developer, Backend Developer, REST API, Web Development, Portfolio">
+    <!-- Author -->
+    <meta name="author" content="{{ profile.name }}">
+    <!-- Open Graph (Facebook, LinkedIn) -->
+    <meta property="og:title" content="{{ profile.name }} | {{ profile.title }}">
+    <meta property="og:description" content="{{ profile.about|truncatewords:20 }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aliarayz.pythonanywhere.com/">
+    <meta property="og:image" content="https://aliarayz.pythonanywhere.com/favicon.ico">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ profile.name }} | {{ profile.title }}">
+    <meta name="twitter:description" content="{{ profile.about|truncatewords:20 }}">
+    <meta name="twitter:image" content="https://aliarayz.pythonanywhere.com/favicon.ico">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
