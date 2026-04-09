@@ -191,8 +191,7 @@
             </div>
 
             <div class="video-grid">
-                {% for project in projects %}
-                {% if project.video_file %}
+                {% for project in video_projects_preview %}
                 <div class="video-item glass-card" data-aos="zoom-in" data-aos-delay="{{ forloop.counter|add:100 }}">
                     <div class="video-container">
                         <video controls autoplay muted loop preload="metadata" playsinline
@@ -203,9 +202,17 @@
                     </div>
                     <h3 class="video-title">{{ project.title }} Demo</h3>
                 </div>
-                {% endif %}
                 {% endfor %}
             </div>
+
+            {% if show_all_videos_btn %}
+            <div class="show-all-container" data-aos="fade-up">
+                <a href="{% url 'all_videos' %}" class="btn-show-all" id="show-all-videos-btn">
+                    <span>Show All Demonstrations</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            {% endif %}
         </div>
     </section>
 
@@ -217,7 +224,7 @@
                 <div class="underline"></div>
             </div>
             <div class="projects-grid">
-                {% for project in projects %}
+                {% for project in projects|slice:":6" %}
                 <div class="project-card glass-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:100 }}">
                     <div class="project-header">
                         <i class="fas fa-folder-open"></i>
@@ -255,6 +262,15 @@
                 </div>
                 {% endfor %}
             </div>
+
+            {% if show_all_projects_btn %}
+            <div class="show-all-container" data-aos="fade-up">
+                <a href="{% url 'all_projects' %}" class="btn-show-all" id="show-all-projects-btn">
+                    <span>Show All Projects</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            {% endif %}
         </div>
     </section>
 

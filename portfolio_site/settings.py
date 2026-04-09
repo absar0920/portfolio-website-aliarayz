@@ -22,7 +22,7 @@ except ImportError:
 
 
 
-DEBUG = os.environ.get("DEBUG", "False") == "True"
+DEBUG = os.environ.get("DEBUG", "False") == "False"
 
 ALLOWED_HOSTS = [
     "localhost",

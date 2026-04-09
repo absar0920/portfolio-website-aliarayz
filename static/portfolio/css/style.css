@@ -128,7 +128,11 @@ body {
     transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-h1, h2, h3, h4, .logo {
+h1,
+h2,
+h3,
+h4,
+.logo {
     font-family: 'Outfit', sans-serif;
 }
 
@@ -155,7 +159,7 @@ h1, h2, h3, h4, .logo {
     padding: 24px;
     box-shadow: var(--shadow-card);
     transition: all 0.3s ease, background-color 0.4s ease,
-                border-color 0.4s ease, box-shadow 0.4s ease;
+        border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
 .glass-card:hover {
@@ -322,7 +326,7 @@ h1, h2, h3, h4, .logo {
 .theme-toggle .icon-moon {
     position: absolute;
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                opacity 0.3s ease;
+        opacity 0.3s ease;
 }
 
 /* Dark mode: show sun icon (to switch to light) */
@@ -330,6 +334,7 @@ h1, h2, h3, h4, .logo {
     opacity: 1;
     transform: rotate(0deg) scale(1);
 }
+
 .theme-toggle .icon-moon {
     opacity: 0;
     transform: rotate(-90deg) scale(0.5);
@@ -340,6 +345,7 @@ h1, h2, h3, h4, .logo {
     opacity: 0;
     transform: rotate(90deg) scale(0.5);
 }
+
 [data-theme="light"] .theme-toggle .icon-moon {
     opacity: 1;
     transform: rotate(0deg) scale(1);
@@ -663,15 +669,13 @@ section {
     position: relative;
     margin-top: -40px;
     height: 40px;
-    background: linear-gradient(
-        to bottom,
-        transparent 0%,
-        var(--fade-mid) 60%,
-        var(--fade-end) 100%
-    );
+    background: linear-gradient(to bottom,
+            transparent 0%,
+            var(--fade-mid) 60%,
+            var(--fade-end) 100%);
     pointer-events: none;
     transition: opacity 0.4s ease, margin-top 0.4s ease, height 0.4s ease,
-                background 0.4s ease;
+        background 0.4s ease;
 }
 
 .project-content-wrapper.is-expanded .project-fade-overlay {
@@ -975,6 +979,166 @@ textarea:focus {
 
 
 /* ============================================
+   Show All Button
+   ============================================ */
+
+.show-all-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 48px;
+}
+
+.btn-show-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--text-primary);
+    background: var(--bg-card);
+    border: 1.5px solid var(--border-glass);
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-card);
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-show-all::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50px;
+    padding: 1.5px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+
+    /* Standard property (Firefox, modern spec) */
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+
+    /* WebKit support (Chrome, Safari) */
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+
+    /* Composite rules */
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
+
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+
+.btn-show-all:hover::before {
+    opacity: 1;
+}
+
+.btn-show-all:hover {
+    border-color: transparent;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px var(--primary-glow),
+        0 4px 12px var(--secondary-glow);
+    background: var(--bg-card-hover);
+}
+
+.btn-show-all i {
+    font-size: 0.9rem;
+    transition: transform 0.3s ease;
+}
+
+.btn-show-all:hover i {
+    transform: translateX(5px);
+}
+
+
+/* ============================================
+   Subpage Hero & Header
+   ============================================ */
+
+.subpage-hero {
+    padding-top: calc(var(--nav-height) + 60px);
+    padding-bottom: 20px;
+}
+
+.subpage-header {
+    text-align: center;
+}
+
+.subpage-header .section-title {
+    margin-top: 16px;
+}
+
+.subpage-header .section-subtitle {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin-top: 8px;
+    margin-bottom: 16px;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 8px 20px;
+    border-radius: 50px;
+    border: 1px solid var(--border-readmore);
+    transition: all 0.3s ease;
+    margin-bottom: 8px;
+}
+
+.back-link:hover {
+    background: var(--bg-readmore-hover);
+    border-color: var(--primary);
+    box-shadow: var(--shadow-readmore);
+    transform: translateX(-4px);
+}
+
+.back-link i {
+    transition: transform 0.3s ease;
+}
+
+.back-link:hover i {
+    transform: translateX(-4px);
+}
+
+
+/* ============================================
+   Empty State
+   ============================================ */
+
+.empty-state {
+    text-align: center;
+    padding: 60px 30px;
+    grid-column: 1 / -1;
+}
+
+.empty-state i {
+    font-size: 3rem;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.empty-state p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+
+/* ============================================
    Footer
    ============================================ */
 
@@ -1004,9 +1168,17 @@ footer {
 }
 
 @keyframes blink {
-    0%   { opacity: 1; }
-    50%  { opacity: 0; }
-    100% { opacity: 1; }
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 
@@ -1059,5 +1231,30 @@ footer {
     .theme-toggle {
         width: 40px;
         height: 40px;
+    }
+
+    /* Show All button mobile */
+    .btn-show-all {
+        padding: 12px 28px;
+        font-size: 0.9rem;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .show-all-container {
+        margin-top: 32px;
+    }
+
+    /* Subpage mobile */
+    .subpage-hero {
+        padding-top: calc(var(--nav-height) + 30px);
+    }
+
+    .subpage-header .section-title {
+        font-size: 1.8rem;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
     }
 }
