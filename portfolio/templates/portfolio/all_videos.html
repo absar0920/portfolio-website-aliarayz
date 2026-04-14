@@ -101,6 +101,39 @@
                 </div>
                 {% endfor %}
             </div>
+            <!-- Pagination -->
+            {% if video_projects.has_other_pages %}
+            <div class="pagination-container" data-aos="fade-up">
+                <ul class="pagination">
+                    {% if video_projects.has_previous %}
+                    <li>
+                        <a href="?page={{ video_projects.previous_page_number }}" class="page-link">
+                            &laquo; Prev
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% for num in video_projects.paginator.page_range %}
+                    {% if video_projects.number == num %}
+                    <li>
+                        <span class="page-link active-page">{{ num }}</span>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="?page={{ num }}" class="page-link">{{ num }}</a>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if video_projects.has_next %}
+                    <li>
+                        <a href="?page={{ video_projects.next_page_number }}" class="page-link">
+                            Next &raquo;
+                        </a>
+                    </li>
+                    {% endif %}
+
+                </ul>
+            </div>
+            {% endif %}
         </div>
     </section>
 

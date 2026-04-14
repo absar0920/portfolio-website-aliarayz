@@ -3,6 +3,8 @@ from django.http import JsonResponse
 from django.core.mail import send_mail
 from django.conf import settings
 from .models import Profile, Skill, Project, Experience, Achievement, Education, Automation, ContactMessage
+from django.core.paginator import Paginator
+
 
 def index(request):
     profile = Profile.objects.first()
@@ -35,8 +37,10 @@ def index(request):
 def all_videos(request):
     """Display all project demonstration videos."""
     profile = Profile.objects.first()
-    projects = Project.objects.all()
-    video_projects = [p for p in projects if p.video_file]
+    video_projects = Project.objects.filter(video_file__isnull=False).exclude(video_file='')
+    paginator = Paginator(video_projects, 8)
+    page_number = request.GET.get('page')
+    video_projects = paginator.get_page(page_number)
 
     context = {
         'profile': profile,
@@ -48,8 +52,10 @@ def all_videos(request):
 def all_projects(request):
     """Display all featured projects with full details."""
     profile = Profile.objects.first()
-    projects = Project.objects.all()
-
+    projects_list = Project.objects.all()
+    paginator = Paginator(projects_list, 9)
+    page_number = request.GET.get('page')
+    projects = paginator.get_page(page_number)
     context = {
         'profile': profile,
         'projects': projects,

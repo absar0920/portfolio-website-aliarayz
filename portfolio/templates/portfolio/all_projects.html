@@ -6,7 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Projects | {{ profile.name }}</title>
-    <meta name="description" content="Browse all featured projects by {{ profile.name }} — Python, Django, backend development and more.">
+    <meta name="description"
+        content="Browse all featured projects by {{ profile.name }} — Python, Django, backend development and more.">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -130,6 +131,42 @@
                 </div>
                 {% endfor %}
             </div>
+            <!-- ✅ Pagination INSIDE container -->
+            {% if projects.has_other_pages %}
+            <div class="pagination-container" data-aos="fade-up">
+                <ul class="pagination">
+
+                    {% if projects.has_previous %}
+                    <li>
+                        <a href="?page={{ projects.previous_page_number }}" class="page-link">
+                            &laquo; Prev
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    {% for num in projects.paginator.page_range %}
+                    {% if projects.number == num %}
+                    <li>
+                        <span class="page-link active-page">{{ num }}</span>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="?page={{ num }}" class="page-link">{{ num }}</a>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% if projects.has_next %}
+                    <li>
+                        <a href="?page={{ projects.next_page_number }}" class="page-link">
+                            Next &raquo;
+                        </a>
+                    </li>
+                    {% endif %}
+
+                </ul>
+            </div>
+            {% endif %}
         </div>
     </section>
 
