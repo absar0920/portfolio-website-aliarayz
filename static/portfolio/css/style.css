@@ -954,6 +954,7 @@ textarea {
     appearance: none;
     transition: all 0.25s ease-in-out;
     touch-action: manipulation;
+    -webkit-text-size-adjust: 100%;
 }
 
 input:focus,
