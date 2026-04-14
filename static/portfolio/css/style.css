@@ -949,13 +949,17 @@ textarea {
     color: var(--text-input);
     font-family: inherit;
     outline: none;
-    transition: all 0.3s ease;
+    font-size: 16px;
+    -webkit-appearance: none;
+    appearance: none;
+    transition: all 0.25s ease-in-out;
 }
 
 input:focus,
 textarea:focus {
     border-color: var(--primary);
     background: var(--bg-input-focus);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 /* Form message styles */
