@@ -953,6 +953,7 @@ textarea {
     -webkit-appearance: none;
     appearance: none;
     transition: all 0.25s ease-in-out;
+    touch-action: manipulation;
 }
 
 input:focus,
