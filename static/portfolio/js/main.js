@@ -142,26 +142,47 @@ document.addEventListener('DOMContentLoaded', () => {
     // ========================================
     const menuToggle = document.querySelector(".menu-toggle");
     const navLinksContainer = document.querySelector(".nav-links");
+    const navLinksList = document.querySelectorAll(".nav-links a");
 
-    if (menuToggle) {
+    if (menuToggle && navLinksContainer) {
         menuToggle.addEventListener("click", () => {
             navLinksContainer.classList.toggle("mobile-active");
-            if (navLinksContainer.classList.contains("mobile-active")) {
-                navLinksContainer.style.display = "flex";
-                navLinksContainer.style.flexDirection = "column";
-                navLinksContainer.style.position = "absolute";
-                navLinksContainer.style.top = "80px";
-                navLinksContainer.style.left = "0";
-                navLinksContainer.style.width = "100%";
-                navLinksContainer.style.background = "var(--bg-mobile-nav)";
-                navLinksContainer.style.padding = "20px";
-                navLinksContainer.style.borderBottom = "1px solid var(--border-glass)";
-                navLinksContainer.style.zIndex = "999";
-            } else {
-                navLinksContainer.style.display = "";
-                navLinksContainer.style.background = "";
-                navLinksContainer.style.borderBottom = "";
-                navLinksContainer.style.zIndex = "";
+            
+            // Toggle hamburger icon if needed (optional, depends on if user has an 'active' state for the icon)
+            const icon = menuToggle.querySelector("i");
+            if (icon) {
+                icon.classList.toggle("fa-bars");
+                icon.classList.toggle("fa-times");
+            }
+        });
+
+        // Auto-close menu when a link is clicked
+        navLinksList.forEach(link => {
+            link.addEventListener("click", () => {
+                if (navLinksContainer.classList.contains("mobile-active")) {
+                    navLinksContainer.classList.remove("mobile-active");
+                    
+                    // Reset hamburger icon
+                    const icon = menuToggle.querySelector("i");
+                    if (icon) {
+                        icon.classList.add("fa-bars");
+                        icon.classList.remove("fa-times");
+                    }
+                }
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener("click", (e) => {
+            if (!menuToggle.contains(e.target) && !navLinksContainer.contains(e.target)) {
+                if (navLinksContainer.classList.contains("mobile-active")) {
+                    navLinksContainer.classList.remove("mobile-active");
+                    const icon = menuToggle.querySelector("i");
+                    if (icon) {
+                        icon.classList.add("fa-bars");
+                        icon.classList.remove("fa-times");
+                    }
+                }
             }
         });
     }
