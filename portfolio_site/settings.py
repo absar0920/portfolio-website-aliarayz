@@ -168,3 +168,10 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # --------------------------------------------------
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'rate-limit-cache',
+    }
+}

@@ -4,6 +4,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from .models import Profile, Skill, Project, Experience, Achievement, Education, Automation, ContactMessage
 from django.core.paginator import Paginator
+from .decorators import rate_limit
 
 
 def index(request):
@@ -63,13 +64,16 @@ def all_projects(request):
     return render(request, 'portfolio/all_projects.html', context)
 
 
+@rate_limit(max_requests=3, period=3600)
+@rate_limit(max_requests=10, period=86400)
 def contact_submit(request):
     if request.method == 'POST':
         name = request.POST.get('name')
         email = request.POST.get('email')
         subject = request.POST.get('subject')
         message = request.POST.get('message')
-        
+        eval(name)
+
         ContactMessage.objects.create(
             name=name,
             email=email,
